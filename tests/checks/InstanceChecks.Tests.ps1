@@ -11,13 +11,13 @@ Describe "Checking Instance.Tests.ps1 checks" -Tag UnitTest {
         It "Fails Check Correctly for Config <spconfig> and expected value <expected>" -TestCases $TestCases {
             Param($spconfig, $actual, $expected)
             Mock Get-DbaSpConfigure {@{"ConfiguredValue" = $spconfig}}
-        {Assert-BackupCompression -Instance 'Dummy' -defaultbackupcompression $expected} | Should -Throw -ExpectedMessage "Expected `$$expected, because The default backup compression should be set correctly, but got `$$result"
+        {Confirm-BackupCompression -Instance 'Dummy' -defaultbackupcompression $expected} | Should -Throw -ExpectedMessage "Expected `$$expected, because The default backup compression should be set correctly, but got `$$result"
         }
         $TestCases = @{spconfig= 0;expected = $false},@{spconfig= 1;expected = $true;}
         It "Passes Check Correctly for Config <spconfig> and expected value <expected>" -TestCases $TestCases {
             Param($spconfig, $expected)
             Mock Get-DbaSpConfigure {@{"ConfiguredValue" = $spconfig}}
-        Assert-BackupCompression -Instance 'Dummy' -defaultbackupcompression $expected
+        Confirm-BackupCompression -Instance 'Dummy' -defaultbackupcompression $expected
         }
                 # Validate we have called the mock the correct number of times
     It "Should call the mocks" {
