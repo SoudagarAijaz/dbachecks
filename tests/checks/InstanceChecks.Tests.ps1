@@ -1,5 +1,5 @@
 # load all of the assertion functions
-(Get-ChildItem $PSScriptRoot/../../internal/assertions/).ForEach{. $Psitem.FullName}
+(Get-ChildItem $PSScriptRoot/../../internal/confirm/).ForEach{. $Psitem.FullName}
 
 Describe "Checking Instance.Tests.ps1 checks" -Tag UnitTest {
     Context "Checking Backup Compression" {
